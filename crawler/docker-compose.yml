@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  crawler:
+    image: crawler:alpha
+    build: .
+    command: python3 main.py
+    container_name: vinf-crawler
+    network_mode: host
+    volumes:
+      - .:/app
+
