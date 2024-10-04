@@ -214,7 +214,52 @@ class Crawler:
         
             if url in self.visited or url in self.never_crawl or not self.can_crawl(url):
                 continue
-
+            
+            # if RegexPatterns.PRODUCT_LIST.match(url):
+            #         try:
+            #             logger.debug(f"Selenium loading: {url}")
+            #             self.driver.set_page_load_timeout(10)
+            #             self.driver.get(url)
+            #             html = self.driver.page_source
+                        
+            #         except Exception as e:
+            #             logger.warning(f"Selenium failed to load [Retry:{retry_count}] {url}: {str(e)}")
+            #             raise requests.RequestException(str(e))
+            #     else:
+            #         try:
+            #             response = requests.get(url, timeout=10, headers=self.headers)
+            #             response.raise_for_status()
+            #             html = response.text
+            #         except requests.RequestException as e:
+            #             if "429" in str(e):
+            #                 self.too_many_requests_count += 1
+            #                 logger.warning(f"[429] Too many requests. Increasing delay.")
+            #                 logger.warning(f"[Retry:{retry_count}] {url}")
+            #                 logger.debug(f"Current crawl delay: {self.crawl_delay:.2f}s")
+                            
+            #                 raise
+                            
+            #             if "404" in str(e):
+            #                 logger.warning(f"[404] Not Found: {url}")
+            #                 self.never_crawl.add(url)
+            #                 self.successful_requests_count += 1
+            #                 continue
+                        
+            #             if "443" in str(e):
+            #                 logger.warning(f"[443] SSL Error / Forbidden: {url}")
+            #                 self.successful_requests_count += 1
+            #                 self.never_crawl.add(url)
+            #                 continue
+                        
+            #             if "403" in str(e):
+            #                 logger.warning(f"[403] Forbidden: {url}")
+            #                 self.successful_requests_count += 1
+            #                 self.never_crawl.add(url)
+            #                 continue
+                            
+            #             logger.warning(f"Requests failed to load [Retry:{retry_count}] {url}: {str(e)}")
+            #             raise
+            
             try:
                 time.sleep(self.crawl_delay)
                 self.adjust_crawl_delay()
