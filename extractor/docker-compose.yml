@@ -1,0 +1,8 @@
+
+services:
+  pylucene:
+    image: coady/pylucene
+    volumes:
+      - ./:/app
+    working_dir: /app
+    command: python lucene_search_engine.py

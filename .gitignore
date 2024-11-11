@@ -4,3 +4,6 @@ __pycache__/
 **/*.log
 **/crawler/url_hashes.txt
 **/crawler/crawler_state.pkl
+**/extractor/data/*
+**/extractor/extracted_data_single/*
+**/lucene/index/*

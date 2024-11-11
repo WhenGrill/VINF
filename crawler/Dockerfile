@@ -37,8 +37,13 @@ RUN rm /chromedriver_linux64.zip
 RUN rm /google-chrome-stable-114.0.5735.90-1.deb
 
 
+WORKDIR /app
+
 COPY ./requirements.txt /app/requirements.txt
 
 WORKDIR /app
 
 RUN pip3 install -r requirements.txt
+
+USER www-data:www-data
+

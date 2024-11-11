@@ -2,9 +2,9 @@ version: '3.8'
 
 services:
   crawler:
-    image: crawler:alpha
+    image: crawler:firefox
     build: .
-    command: python3 main.py
+    command: python3.11 main.py --driver firefox
     container_name: vinf-crawler
     network_mode: host
     volumes:

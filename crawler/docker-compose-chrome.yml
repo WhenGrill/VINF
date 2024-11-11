@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  crawler:
+    image: crawler:chrome
+    build: .
+    command: python3.11 main.py --driver chrome
+    container_name: vinf-crawler
+    network_mode: host
+    init: true
+    volumes:
+      - .:/app
+

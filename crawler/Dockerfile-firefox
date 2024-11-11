@@ -1,0 +1,45 @@
+# Use the official Selenium Firefox image
+FROM selenium/standalone-firefox:latest
+
+USER root
+# Install Python 3.11
+RUN apt-get update
+RUN apt-get install -y software-properties-common
+RUN add-apt-repository ppa:deadsnakes/ppa 
+RUN apt-get update 
+RUN apt-get install -y python3.11 python3.11-venv python3.11-dev python3-pip
+RUN apt-get clean
+RUN rm -rf /var/lib/apt/lists/*
+
+# Set Python 3.11 as the default python3
+RUN ln -sf /usr/bin/python3.11 /usr/bin/python3
+
+RUN mkdir /var/www
+RUN mkdir /var/www/.cache
+RUN mkdir /var/www/.mozilla
+
+RUN chown -R www-data:www-data /var/www
+
+# Modify /etc/passwd to give www-data user bash permissions
+RUN sed -i 's|www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin|www-data:x:33:33:www-data:/var/www:/bin/bash|' /etc/passwd
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the requirements file
+COPY ./requirements.txt /app/requirements.txt
+
+# Install Python dependencies
+
+#RUN python3 -m pip install --upgrade pip && \
+#    pip install -r requirements.txt
+
+WORKDIR /app
+
+COPY ./requirements.txt /app/requirements.txt
+
+WORKDIR /app
+
+RUN pip install -r requirements.txt
+
+USER www-data:www-data
